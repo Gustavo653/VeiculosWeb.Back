@@ -167,9 +167,16 @@ namespace VeiculosWeb.Service
             try
             {
                 Log.Information("Role do usuário do DTO: {role}", userDTO.Role);
+                var requestUser = await userRepository.GetEntities().FirstOrDefaultAsync(x=>x.Id == Session.GetString(Consts.ClaimUserId)!);
+
+                if(requestUser!.Id != id.ToString() && requestUser.Role != RoleName.Admin)
+                {
+                    responseDTO.SetForbidden($"Não é possível editar outro usuário");
+                    return responseDTO;
+                }
+
                 if (userDTO.Role == RoleName.Admin)
                 {
-                    var requestUser = await userManager.FindByIdAsync(Session.GetString(Consts.ClaimUserId)!);
                     var requestUserRoleAdmin = requestUser!.Role == RoleName.Admin;
                     if (!requestUserRoleAdmin)
                     {
@@ -213,6 +220,13 @@ namespace VeiculosWeb.Service
             ResponseDTO responseDTO = new();
             try
             {
+                var requestUser = await userRepository.GetEntities().FirstOrDefaultAsync(x => x.Id == Session.GetString(Consts.ClaimUserId)!);
+                if (requestUser!.Id != id.ToString() && requestUser.Role != RoleName.Admin)
+                {
+                    responseDTO.SetForbidden($"Não é possível editar outro usuário");
+                    return responseDTO;
+                }
+
                 var userEntity = await userRepository.GetTrackedEntities().FirstOrDefaultAsync(x => x.Id == id.ToString());
                 if (userEntity == null)
                 {

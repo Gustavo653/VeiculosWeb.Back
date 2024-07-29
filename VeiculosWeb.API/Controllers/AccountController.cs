@@ -42,7 +42,6 @@ namespace VeiculosWeb.API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser([FromRoute] Guid id, [FromBody] UserDTO userDTO)
         {
-            throw new NotImplementedException("Implementar filtro de ID da sessão");
             var user = await accountService.UpdateUser(id, userDTO);
             return StatusCode(user.Code, user);
         }
@@ -50,7 +49,6 @@ namespace VeiculosWeb.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> RemoveUser([FromRoute] Guid id)
         {
-            throw new NotImplementedException("Implementar filtro de ID da sessão");
             var user = await accountService.RemoveUser(id);
             return StatusCode(user.Code, user);
         }
