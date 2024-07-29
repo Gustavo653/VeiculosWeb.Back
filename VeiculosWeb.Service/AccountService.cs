@@ -38,9 +38,7 @@ namespace VeiculosWeb.Service
         {
             try
             {
-                return await userRepository.GetEntities()
-                    .Include(x => x.Tenant)
-                    .FirstOrDefaultAsync(x => x.NormalizedEmail == email.ToUpper());
+                return await userRepository.GetEntities().FirstOrDefaultAsync(x => x.NormalizedEmail == email.ToUpper());
             }
             catch (Exception ex)
             {
@@ -123,13 +121,6 @@ namespace VeiculosWeb.Service
                         responseDTO.SetForbidden($"O usuário {requestUser!.Id} não pertence ao role {RoleName.Admin}");
                         return responseDTO;
                     }
-                    userDTO.IdTenant = null;
-                    userDTO.Coren = null;
-                }
-                else
-                {
-                    userDTO.IdTenant = Guid.Parse((string.IsNullOrEmpty(Session.GetString(Consts.ClaimTenantId)) ? userDTO.IdTenant.ToString() : Session.GetString(Consts.ClaimTenantId))!);
-                    Log.Information("Atribuindo ao usuário novo o tenant: {idTenant}", userDTO.IdTenant);
                 }
 
                 var user = await userManager.FindByEmailAsync(userDTO.Email);
@@ -144,10 +135,8 @@ namespace VeiculosWeb.Service
                     Name = userDTO.Name,
                     Role = userDTO.Role,
                     Email = userDTO.Email,
-                    Coren = userDTO.Role == RoleName.Paramedic ? userDTO.Coren : null,
                     NormalizedEmail = userDTO.Email.ToUpper(),
-                    NormalizedUserName = userDTO.Email.ToUpper(),
-                    TenantId = userDTO.IdTenant
+                    NormalizedUserName = userDTO.Email.ToUpper()
                 };
 
                 userEntity.PasswordHash = userManager.PasswordHasher.HashPassword(userEntity, Guid.NewGuid().ToString());
@@ -187,13 +176,6 @@ namespace VeiculosWeb.Service
                         responseDTO.SetForbidden($"O usuário {requestUser!.Id} não pertence ao role {RoleName.Admin}");
                         return responseDTO;
                     }
-                    userDTO.IdTenant = null;
-                    userDTO.Coren = null;
-                }
-                else
-                {
-                    userDTO.IdTenant = Guid.Parse((string.IsNullOrEmpty(Session.GetString(Consts.ClaimTenantId)) ? userDTO.IdTenant.ToString() : Session.GetString(Consts.ClaimTenantId))!);
-                    Log.Information("Atribuindo ao usuário novo o tenant: {idTenant}", userDTO.IdTenant);
                 }
 
                 var userEntity = await userRepository.GetTrackedEntities().FirstOrDefaultAsync(x => x.Id == id.ToString());
@@ -204,7 +186,6 @@ namespace VeiculosWeb.Service
                 }
 
                 userEntity.Name = userDTO.Name;
-                userEntity.Coren = userDTO.Coren;
 
                 await userRepository.SaveChangesAsync();
 
@@ -232,8 +213,7 @@ namespace VeiculosWeb.Service
             ResponseDTO responseDTO = new();
             try
             {
-                var tenantId = Session.GetString(Consts.ClaimTenantId);
-                var userEntity = await userRepository.GetTrackedEntities().FirstOrDefaultAsync(x => x.Id == id.ToString() && x.TenantId == (tenantId == null ? x.TenantId : Guid.Parse(tenantId)));
+                var userEntity = await userRepository.GetTrackedEntities().FirstOrDefaultAsync(x => x.Id == id.ToString());
                 if (userEntity == null)
                 {
                     responseDTO.SetBadInput($"Usuário não encontrado com este id: {id}!");
@@ -262,15 +242,12 @@ namespace VeiculosWeb.Service
             try
             {
                 responseDTO.Object = await userRepository.GetEntities()
-                                                          .Where(x => Session.GetString(Consts.ClaimTenantId) == string.Empty ||
-                                                                      Session.GetString(Consts.ClaimTenantId) == x.TenantId.ToString())
                                                           .Select(x => new
                                                           {
                                                               x.Id,
                                                               x.Name,
                                                               x.Email,
                                                               x.UserName,
-                                                              x.Coren,
                                                               x.Role
                                                           }).ToListAsync();
             }

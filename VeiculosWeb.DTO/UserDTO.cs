@@ -10,8 +10,6 @@ namespace VeiculosWeb.DTO
         public required string Email { get; set; }
         [Required]
         public required string Name { get; set; }
-        public int? Coren { get; set; }
-        public Guid? IdTenant { get; set; }
         [Required]
         public required RoleName Role { get; set; }
     }

@@ -24,7 +24,7 @@ namespace VeiculosWeb.API.Controllers
         }
 
         [HttpGet("")]
-        [Authorize(Roles = $"{nameof(RoleName.Admin)}, {nameof(RoleName.Manager)}")]
+        [Authorize(Roles = $"{nameof(RoleName.Admin)}")]
         public async Task<IActionResult> GetUsers()
         {
             var user = await accountService.GetUsers();
@@ -32,7 +32,7 @@ namespace VeiculosWeb.API.Controllers
         }
 
         [HttpPost("")]
-        [Authorize(Roles = $"{nameof(RoleName.Admin)}, {nameof(RoleName.Manager)}")]
+        [AllowAnonymous]
         public async Task<IActionResult> CreateUser([FromBody] UserDTO userDTO)
         {
             var user = await accountService.CreateUser(userDTO);
@@ -40,24 +40,24 @@ namespace VeiculosWeb.API.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles = $"{nameof(RoleName.Admin)}, {nameof(RoleName.Manager)}")]
         public async Task<IActionResult> UpdateUser([FromRoute] Guid id, [FromBody] UserDTO userDTO)
         {
+            throw new NotImplementedException("Implementar filtro de ID da sessão");
             var user = await accountService.UpdateUser(id, userDTO);
             return StatusCode(user.Code, user);
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = $"{nameof(RoleName.Admin)}, {nameof(RoleName.Manager)}")]
         public async Task<IActionResult> RemoveUser([FromRoute] Guid id)
         {
+            throw new NotImplementedException("Implementar filtro de ID da sessão");
             var user = await accountService.RemoveUser(id);
             return StatusCode(user.Code, user);
         }
 
         [HttpPost("RequestResetPassword")]
         [AllowAnonymous]
-        public async Task<IActionResult> RemoveUser([FromBody] string email)
+        public async Task<IActionResult> RequestResetPassword([FromBody] string email)
         {
             var user = await accountService.RequestResetPassword(email);
             return StatusCode(user.Code, user);

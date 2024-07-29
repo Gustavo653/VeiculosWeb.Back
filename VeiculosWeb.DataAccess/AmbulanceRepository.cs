@@ -2,13 +2,11 @@
 using VeiculosWeb.Infrastructure.Repository;
 using VeiculosWeb.Persistence;
 using Microsoft.AspNetCore.Http;
+using VeiculosWeb.Domain.CarSpecification;
 
 namespace VeiculosWeb.DataAccess
 {
-    public class AmbulanceRepository : TenantBaseRepository<Ambulance, VeiculosWebContext>, IAmbulanceRepository
+    public class FuelRepository(VeiculosWebContext context) : BaseRepository<Fuel, VeiculosWebContext>(context), IFuelRepository
     {
-        public AmbulanceRepository(IHttpContextAccessor httpContextAccessor, VeiculosWebContext context) : base(httpContextAccessor, context)
-        {
-        }
     }
 }

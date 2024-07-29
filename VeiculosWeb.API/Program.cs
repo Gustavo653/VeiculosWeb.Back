@@ -1,20 +1,12 @@
 using Hangfire;
 using Hangfire.PostgreSql;
 using VeiculosWeb.DataAccess;
-using VeiculosWeb.DataAccess.Driver;
-using VeiculosWeb.DataAccess.Paramedic;
 using VeiculosWeb.Domain.Base;
 using VeiculosWeb.Domain.Enum;
 using VeiculosWeb.Infrastructure.Repository;
-using VeiculosWeb.Infrastructure.Repository.Driver;
-using VeiculosWeb.Infrastructure.Repository.Paramedic;
 using VeiculosWeb.Infrastructure.Service;
-using VeiculosWeb.Infrastructure.Service.Driver;
-using VeiculosWeb.Infrastructure.Service.Paramedic;
 using VeiculosWeb.Persistence;
 using VeiculosWeb.Service;
-using VeiculosWeb.Service.Driver;
-using VeiculosWeb.Service.Paramedic;
 using VeiculosWeb.Utils;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -70,7 +62,7 @@ namespace VeiculosWeb.API
                 x.LoggingFields = Microsoft.AspNetCore.HttpLogging.HttpLoggingFields.All;
             });
 
-            builder.Services.AddScoped<TenantMiddleware>();
+            builder.Services.AddScoped<SessionMiddleware>();
 
             InjectUserDependencies(builder);
 
@@ -82,12 +74,8 @@ namespace VeiculosWeb.API
             builder.Services.AddSession();
 
             builder.Services.AddControllers()
-                    .AddJsonOptions(options =>
-                        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter())
-                    )
-                    .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling =
-                        Newtonsoft.Json.ReferenceLoopHandling.Ignore
-                    );
+                            .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()))
+                            .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             builder.Services.AddEndpointsApiExplorer();
 
@@ -104,8 +92,6 @@ namespace VeiculosWeb.API
 
             builder.Services.AddMvc();
             builder.Services.AddRouting();
-
-            builder.Services.AddHealthChecks().AddCheck<WarmHealthCheck>("WarmHealthCheck");
 
             var app = builder.Build();
 
@@ -136,11 +122,9 @@ namespace VeiculosWeb.API
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseMiddleware<TenantMiddleware>();
+            app.UseMiddleware<SessionMiddleware>();
 
             app.MapControllers();
-
-            app.MapHealthChecks("/health");
 
             app.Run();
         }
@@ -222,37 +206,15 @@ namespace VeiculosWeb.API
 
         private static void InjectRepositoryDependencies(IHostApplicationBuilder builder)
         {
-            builder.Services.AddScoped<IAmbulanceRepository, AmbulanceRepository>();
-            builder.Services.AddScoped<IDriverCategoryRepository, DriverCategoryRepository>();
-            builder.Services.AddScoped<IDriverItemRepository, DriverItemRepository>();
-            builder.Services.AddScoped<IDriverChecklistCheckedItemRepository, DriverChecklistCheckedItemRepository>();
-            builder.Services.AddScoped<IDriverChecklistRepository, DriverChecklistRepository>();
-            builder.Services.AddScoped<IDriverChecklistReviewRepository, DriverChecklistReviewRepository>();
-            builder.Services.AddScoped<IDriverChecklistItemRepository, DriverChecklistItemRepository>();
-            builder.Services.AddScoped<IParamedicChecklistReplacedItemRepository, ParamedicChecklistReplacedItemRepository>();
-            builder.Services.AddScoped<IParamedicCategoryRepository, ParamedicCategoryRepository>();
-            builder.Services.AddScoped<IParamedicChecklistRepository, ParamedicChecklistRepository>();
-            builder.Services.AddScoped<IParamedicChecklistItemRepository, ParamedicChecklistItemRepository>();
-            builder.Services.AddScoped<IParamedicChecklistReviewRepository, ParamedicChecklistReviewRepository>();
-            builder.Services.AddScoped<IParamedicItemRepository, ParamedicItemRepository>();
+            builder.Services.AddScoped<IFuelRepository, FuelRepository>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
-            builder.Services.AddScoped<ITenantRepository, TenantRepository>();
         }
 
         private static void InjectServiceDependencies(IHostApplicationBuilder builder)
         {
             builder.Services.AddScoped<IAccountService, AccountService>();
-            builder.Services.AddScoped<IAmbulanceService, AmbulanceService>();
-            builder.Services.AddScoped<IDriverCategoryService, DriverCategoryService>();
-            builder.Services.AddScoped<IDriverItemService, DriverItemService>();
-            builder.Services.AddScoped<IDriverChecklistService, DriverChecklistService>();
-            builder.Services.AddScoped<IDriverChecklistReviewService, DriverChecklistReviewService>();
-            builder.Services.AddScoped<IParamedicCategoryService, ParamedicCategoryService>();
-            builder.Services.AddScoped<IParamedicItemService, ParamedicItemService>();
-            builder.Services.AddScoped<IParamedicChecklistService, ParamedicChecklistService>();
-            builder.Services.AddScoped<IParamedicChecklistReviewService, ParamedicChecklistReviewService>();
+            builder.Services.AddScoped<IFuelService, FuelService>();
             builder.Services.AddScoped<IEmailService, EmailService>();
-            builder.Services.AddScoped<ITenantService, TenantService>();
             builder.Services.AddScoped<ITokenService, TokenService>();
             builder.Services.AddScoped<IGoogleCloudStorageService, GoogleCloudStorageService>();
         }

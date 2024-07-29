@@ -2,9 +2,7 @@
 {
     public enum RoleName
     {
-        Paramedic,
-        Driver,
-        Manager,
+        Basic,
         Admin
     }
 }

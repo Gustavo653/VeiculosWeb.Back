@@ -43,7 +43,6 @@ namespace VeiculosWeb.Service
                 new(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new(ClaimTypes.Name, user.Name),
                 new(ClaimTypes.Email, user.Email ?? ""),
-                new(ClaimTypes.PrimaryGroupSid, user.Tenant?.Id.ToString() ?? ""),
                 new(ClaimTypes.Role, user.Role.ToString())
             };
 

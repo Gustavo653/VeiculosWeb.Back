@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="VeiculosWeb.Domain.Shared.City">
+    <Position X="22.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Location\City.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VeiculosWeb.Domain.Shared.State">
+    <Position X="26" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Location\State.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VeiculosWeb.Domain.Base.User" Collapsed="true">
+    <Position X="38.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAEAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Base\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VeiculosWeb.Domain.CarSpecification.Brand">
+    <Position X="29.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>CarSpecification\Brand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VeiculosWeb.Domain.CarSpecification.Color">
+    <Position X="23.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CarSpecification\Color.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VeiculosWeb.Domain.CarSpecification.Fuel">
+    <Position X="21.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CarSpecification\Fuel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VeiculosWeb.Domain.CarSpecification.Gearbox">
+    <Position X="19" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CarSpecification\Gearbox.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VeiculosWeb.Domain.CarSpecification.Model">
+    <Position X="26.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>CarSpecification\Model.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VeiculosWeb.Domain.CarSpecification.Feature">
+    <Position X="16.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CarSpecification\Feature.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VeiculosWeb.Domain.CarSpecification.Image">
+    <Position X="16.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>CarSpecification\Image.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VeiculosWeb.Domain.Vehicles.BaseVehicle">
+    <Position X="20.5" Y="4.75" Width="1.75" />
+    <AssociationLine Name="Brand" Type="VeiculosWeb.Domain.CarSpecification.Brand" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="22.25" Y="5.812" />
+        <Point X="22.625" Y="5.812" />
+        <Point X="22.625" Y="5.812" />
+        <Point X="29.25" Y="5.812" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Model" Type="VeiculosWeb.Domain.CarSpecification.Model" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="22.25" Y="5.5" />
+        <Point X="26.75" Y="5.5" />
+        <Point X="26.75" Y="2.983" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="State" Type="VeiculosWeb.Domain.Shared.State" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="22.25" Y="6.125" />
+        <Point X="26.375" Y="6.125" />
+        <Point X="26.375" Y="6.75" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Images" Type="VeiculosWeb.Domain.CarSpecification.Image" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="20.688" Y="4.75" />
+        <Point X="20.688" Y="3.116" />
+        <Point X="18.25" Y="3.116" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAIEAAAAAAAAAAAIAAABAAAAAAAAABAAAggA1AABAAA=</HashCode>
+      <FileName>Vehicles\BaseVehicle.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Brand" />
+      <Property Name="City" />
+      <Property Name="Color" />
+      <Property Name="Fuel" />
+      <Property Name="Gearbox" />
+      <Property Name="Model" />
+      <Property Name="State" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Images" />
+      <Property Name="Features" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="VeiculosWeb.Domain.Vehicles.Bike">
+    <Position X="16.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Vehicles\Bike.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VeiculosWeb.Domain.Vehicles.Car">
+    <Position X="16.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Vehicles\Car.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="VeiculosWeb.Domain.Enum.RoleName" Collapsed="true">
+    <Position X="38.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>Enum\RoleName.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
