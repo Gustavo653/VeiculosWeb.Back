@@ -9,7 +9,7 @@ namespace VeiculosWeb.API.Controllers
     public class AccountController(IAccountService accountService) : BaseController
     {
         [HttpGet("Current")]
-        public async Task<IActionResult> GetUser()
+        public async Task<IActionResult> Current()
         {
             var user = await accountService.GetCurrent();
             return StatusCode(user.Code, user);
