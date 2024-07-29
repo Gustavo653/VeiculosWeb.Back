@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\VeiculosWeb.Domain\VeiculosWeb.Domain.csproj" />
+    <ProjectReference Include="..\VeiculosWeb.Infrastructure\VeiculosWeb.Infrastructure.csproj" />
+    <ProjectReference Include="..\VeiculosWeb.Persistence\VeiculosWeb.Persistence.csproj" />
+    <ProjectReference Include="..\VeiculosWeb.Utils\VeiculosWeb.Utils.csproj" />
+  </ItemGroup>
+
+</Project>
