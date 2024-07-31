@@ -205,6 +205,7 @@ namespace VeiculosWeb.API
 
         private static void InjectRepositoryDependencies(IHostApplicationBuilder builder)
         {
+            builder.Services.AddScoped<IBrandRepository, BrandRepository>();
             builder.Services.AddScoped<IFuelRepository, FuelRepository>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
         }
@@ -212,6 +213,7 @@ namespace VeiculosWeb.API
         private static void InjectServiceDependencies(IHostApplicationBuilder builder)
         {
             builder.Services.AddScoped<IAccountService, AccountService>();
+            builder.Services.AddScoped<IBrandService, BrandService>();
             builder.Services.AddScoped<IFuelService, FuelService>();
             builder.Services.AddScoped<IEmailService, EmailService>();
             builder.Services.AddScoped<ITokenService, TokenService>();

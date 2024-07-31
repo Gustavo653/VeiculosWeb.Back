@@ -23,11 +23,10 @@ namespace VeiculosWeb.Service
                     return responseDTO;
                 }
 
-                var fuel = new Fuel
+                var fuel = new Fuel()
                 {
                     Name = fuelDTO.Name,
                 };
-                fuel.SetCreatedAt();
                 await fuelRepository.InsertAsync(fuel);
 
                 await fuelRepository.SaveChangesAsync();

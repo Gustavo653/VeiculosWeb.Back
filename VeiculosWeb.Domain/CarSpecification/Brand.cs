@@ -9,6 +9,7 @@ namespace VeiculosWeb.Domain.CarSpecification
 {
     public class Brand : BasicEntity
     {
-        public IList<Model>? Models { get; set; }
+        public required int Code { get; set; }
+        public virtual List<Model>? Models { get; set; }
     }
 }

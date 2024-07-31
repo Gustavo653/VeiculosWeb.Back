@@ -9,11 +9,11 @@ using VeiculosWeb.Domain.CarSpecification;
 
 namespace VeiculosWeb.Persistence
 {
-    public class VeiculosWebContext(DbContextOptions<VeiculosWebContext> options, IHttpContextAccessor httpContextAccessor) : IdentityDbContext<User>(options)
+    public class VeiculosWebContext(DbContextOptions<VeiculosWebContext> options) : IdentityDbContext<User>(options)
     {
-        private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor;
-
         public DbSet<Fuel> Fuels { get; set; }
+        public DbSet<Brand> Brands { get; set; }
+        public DbSet<Model> Models { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -21,8 +21,17 @@ namespace VeiculosWeb.Persistence
 
             modelBuilder.Entity<Fuel>(x =>
             {
-                x.HasKey(a => a.Id);
                 x.HasIndex(a => new { a.Name }).IsUnique();
+            });
+
+            modelBuilder.Entity<Brand>(x =>
+            {
+                x.HasIndex(a => new { a.Code }).IsUnique();
+            });
+
+            modelBuilder.Entity<Model>(x =>
+            {
+                x.HasIndex(a => new { a.Code, a.BrandId }).IsUnique();
             });
         }
     }

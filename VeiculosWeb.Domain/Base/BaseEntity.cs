@@ -5,13 +5,18 @@ namespace VeiculosWeb.Domain.Base
 {
     public abstract class BaseEntity
     {
+        protected BaseEntity()
+        {
+            SetCreatedAt();
+        }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
         public DateTime CreatedAt { get; private set; }
         public DateTime UpdatedAt { get; private set; }
 
-        public void SetCreatedAt()
+        private void SetCreatedAt()
         {
             CreatedAt = DateTime.Now;
             SetUpdatedAt();
