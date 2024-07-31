@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OutputCaching;
 using VeiculosWeb.Domain.Enum;
 using VeiculosWeb.Infrastructure.Service;
+using VeiculosWeb.Utils;
 
 namespace VeiculosWeb.API.Controllers
 {
@@ -14,22 +16,13 @@ namespace VeiculosWeb.API.Controllers
             var model = await modelService.SyncModels();
             return StatusCode(model.Code, model);
         }
-
-        [HttpGet("")]
-        [ResponseCache(Duration = 86400)]
-        [AllowAnonymous]
-        public async Task<IActionResult> GetList()
-        {
-            var model = await modelService.GetList();
-            return StatusCode(model.Code, model);
-        }
         
-        [HttpGet("GetModelsByBrand/{brandId:Guid}")]
-        [ResponseCache(Duration = 86400)]
+        [HttpGet("GetModelsByBrand/{vehicleType}/{brandId:Guid}")]
+        [OutputCache(PolicyName = "CacheImmutableResponse", Duration = Consts.CacheTimeout)]
         [AllowAnonymous]
-        public async Task<IActionResult> GetModelsByBrand([FromRoute]Guid brandId)
+        public async Task<IActionResult> GetModelsByBrand([FromRoute]VehicleType vehicleType, [FromRoute]Guid brandId)
         {
-            var model = await modelService.GetModelsByBrand(brandId);
+            var model = await modelService.GetModelsByBrand(vehicleType, brandId);
             return StatusCode(model.Code, model);
         }
     }

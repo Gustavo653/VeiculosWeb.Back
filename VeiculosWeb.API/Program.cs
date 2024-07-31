@@ -76,7 +76,10 @@ namespace VeiculosWeb.API
             builder.Services.AddControllers()
                             .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 
-            builder.Services.AddResponseCaching();
+            builder.Services.AddOutputCache(x =>
+            {
+                x.AddPolicy("CacheImmutableResponse", OutputCachePolicy.Instance);
+            });
 
             builder.Services.AddEndpointsApiExplorer();
 
@@ -119,7 +122,7 @@ namespace VeiculosWeb.API
             app.UseSwaggerUI();
 
             app.UseSession();
-            app.UseResponseCaching();
+            app.UseOutputCache();
             
             app.UseAuthentication();
             app.UseAuthorization();

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OutputCaching;
 using VeiculosWeb.Domain.Enum;
 using VeiculosWeb.Infrastructure.Service;
+using VeiculosWeb.Utils;
 
 namespace VeiculosWeb.API.Controllers
 {
@@ -15,22 +16,13 @@ namespace VeiculosWeb.API.Controllers
             var brand = await brandService.SyncBrands();
             return StatusCode(brand.Code, brand);
         }
-
-        [HttpGet("")]
-        [ResponseCache(Duration = 86400)]
-        [AllowAnonymous]
-        public async Task<IActionResult> GetList()
-        {
-            var brand = await brandService.GetList();
-            return StatusCode(brand.Code, brand);
-        }
         
-        [HttpGet("GetBrands")]
-        [ResponseCache(Duration = 86400)]
+        [HttpGet("GetBrands/{vehicleType}")]
+        [OutputCache(PolicyName = "CacheImmutableResponse", Duration = Consts.CacheTimeout)]
         [AllowAnonymous]
-        public async Task<IActionResult> GetBrands()
+        public async Task<IActionResult> GetBrands([FromRoute]VehicleType vehicleType)
         {
-            var brand = await brandService.GetBrands();
+            var brand = await brandService.GetBrands(vehicleType);
             return StatusCode(brand.Code, brand);
         }
     }
