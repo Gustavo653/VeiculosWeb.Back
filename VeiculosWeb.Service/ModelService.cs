@@ -40,6 +40,31 @@ namespace VeiculosWeb.Service
             return responseDTO;
         }
 
+        public async Task<ResponseDTO> GetModelsByBrand(Guid brandId)
+        {
+            ResponseDTO responseDTO = new();
+            try
+            {
+                responseDTO.Object = await modelRepository
+                    .GetEntities()
+                    .Where(x => x.BrandId == brandId)
+                    .Select(x => new
+                    {
+                        x.Id,
+                        x.Code,
+                        x.Name,
+                        x.CreatedAt,
+                        x.UpdatedAt
+                    })
+                    .OrderBy(x => x.Name)
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                responseDTO.SetError(ex);
+            }
+            return responseDTO;        }
+
         public async Task<ResponseDTO> SyncModels()
         {
             ResponseDTO responseDTO = new();

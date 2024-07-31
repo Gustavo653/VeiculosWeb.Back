@@ -5,6 +5,7 @@ namespace VeiculosWeb.Infrastructure.Service
     public interface IBrandService
     {
         Task<ResponseDTO> GetList();
+        Task<ResponseDTO> GetBrands();
         Task<ResponseDTO> SyncBrands();
     }
 }

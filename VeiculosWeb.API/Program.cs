@@ -76,6 +76,8 @@ namespace VeiculosWeb.API
             builder.Services.AddControllers()
                             .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 
+            builder.Services.AddResponseCaching();
+
             builder.Services.AddEndpointsApiExplorer();
 
             SetupSwaggerGen(builder);
@@ -117,7 +119,8 @@ namespace VeiculosWeb.API
             app.UseSwaggerUI();
 
             app.UseSession();
-
+            app.UseResponseCaching();
+            
             app.UseAuthentication();
             app.UseAuthorization();
 

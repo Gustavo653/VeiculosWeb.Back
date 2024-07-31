@@ -23,12 +23,11 @@ namespace VeiculosWeb.Utils
             if (context.User.Identity?.IsAuthenticated == true)
             {
                 var userId = GetClaimValue(context.User, ClaimTypes.NameIdentifier);
-                var tenantId = GetClaimValue(context.User, ClaimTypes.PrimaryGroupSid);
                 var email = GetClaimValue(context.User, ClaimTypes.Email);
                 context.Session.Set(Consts.ClaimUserId, Encoding.UTF8.GetBytes(userId));
                 context.Session.Set(Consts.ClaimEmail, Encoding.UTF8.GetBytes(email));
 
-                logger.LogInformation("Tenant {TenantId}, User {UserId}", tenantId, userId);
+                logger.LogInformation("User {UserId}", userId);
             }
             await next(context);
         }

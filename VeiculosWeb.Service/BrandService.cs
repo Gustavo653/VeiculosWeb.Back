@@ -20,7 +20,7 @@ namespace VeiculosWeb.Service
             {
                 responseDTO.Object = await brandRepository
                     .GetEntities()
-                    .Select(x=> new
+                    .Select(x => new
                     {
                         x.Id,
                         x.Code,
@@ -40,6 +40,34 @@ namespace VeiculosWeb.Service
             {
                 responseDTO.SetError(ex);
             }
+
+            return responseDTO;
+        }
+
+        public async Task<ResponseDTO> GetBrands()
+        {
+            ResponseDTO responseDTO = new();
+            try
+            {
+                responseDTO.Object = await brandRepository
+                    .GetEntities()
+                    .Select(x => new
+                    {
+                        x.Id,
+                        x.Code,
+                        x.Name,
+                        ModelsCount = x.Models.Count,
+                        x.CreatedAt,
+                        x.UpdatedAt
+                    })
+                    .OrderBy(x => x.Name)
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                responseDTO.SetError(ex);
+            }
+
             return responseDTO;
         }
 
@@ -83,6 +111,7 @@ namespace VeiculosWeb.Service
             {
                 responseDTO.SetError(ex);
             }
+
             return responseDTO;
         }
 
@@ -92,14 +121,15 @@ namespace VeiculosWeb.Service
             using HttpClient client = new();
             string response = await client.GetStringAsync(UrlAPIFIPE);
 
-            var brands = JsonConvert.DeserializeObject<IEnumerable<BrandDTO>>(response) ?? throw new NullReferenceException($"Não foi encontrada nenhuma marca");
+            var brands = JsonConvert.DeserializeObject<IEnumerable<BrandDTO>>(response) ?? 
+                                            throw new NullReferenceException($"Não foi encontrada nenhuma marca");
 
             return brands.Select(b => (
                 Code: b.Codigo,
                 Name: b.Nome
             )).ToList();
         }
-        
+
         private class BrandDTO
         {
             public int Codigo { get; set; }

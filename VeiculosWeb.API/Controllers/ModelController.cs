@@ -11,16 +11,26 @@ namespace VeiculosWeb.API.Controllers
         [Authorize(Roles = nameof(RoleName.Admin))]
         public async Task<IActionResult> Sync()
         {
-            var fuel = await modelService.SyncModels();
-            return StatusCode(fuel.Code, fuel);
+            var model = await modelService.SyncModels();
+            return StatusCode(model.Code, model);
         }
 
         [HttpGet("")]
+        [ResponseCache(Duration = 86400)]
         [AllowAnonymous]
-        public async Task<IActionResult> GetModels()
+        public async Task<IActionResult> GetList()
         {
-            var fuel = await modelService.GetList();
-            return StatusCode(fuel.Code, fuel);
+            var model = await modelService.GetList();
+            return StatusCode(model.Code, model);
+        }
+        
+        [HttpGet("GetModelsByBrand/{brandId:Guid}")]
+        [ResponseCache(Duration = 86400)]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetModelsByBrand([FromRoute]Guid brandId)
+        {
+            var model = await modelService.GetModelsByBrand(brandId);
+            return StatusCode(model.Code, model);
         }
     }
 }
