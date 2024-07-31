@@ -5,12 +5,13 @@ using VeiculosWeb.Domain.CarSpecification;
 using VeiculosWeb.DTO.Base;
 using VeiculosWeb.Infrastructure.Repository;
 using VeiculosWeb.Infrastructure.Service;
+using VeiculosWeb.Utils;
 
 namespace VeiculosWeb.Service
 {
     public class BrandService(IBrandRepository brandRepository) : IBrandService
     {
-        private const string UrlAPIFIPE = "https://parallelum.com.br/fipe/api/v1/carros/marcas";
+        private const string UrlAPIFIPE = $"{Consts.UrlBaseAPIFipe}carros/marcas";
 
         public async Task<ResponseDTO> GetList()
         {
@@ -48,7 +49,7 @@ namespace VeiculosWeb.Service
                     {
                         if (repositoryBrand.Name != apiBrand.Name)
                         {
-                            Log.Warning($"Atualizando a marca de {repositoryBrand.Name} para {apiBrand.Name}");
+                            Log.Warning($"Atualizando a marca {repositoryBrand.Code} de {repositoryBrand.Name} para {apiBrand.Name}");
                             repositoryBrand.Name = apiBrand.Name;
                             brandRepository.Update(repositoryBrand);
                         }
@@ -56,12 +57,11 @@ namespace VeiculosWeb.Service
                     else
                     {
                         Log.Warning($"Criando a marca {apiBrand.Name}");
-                        brandRepository.Insert(new Brand() { Name = apiBrand.Name, Code = apiBrand.Code });
+                        await brandRepository.InsertAsync(new Brand() { Name = apiBrand.Name, Code = apiBrand.Code });
                     }
                 }
 
                 await brandRepository.SaveChangesAsync();
-                responseDTO.Object = apiBrands;
             }
             catch (Exception ex)
             {
@@ -71,18 +71,23 @@ namespace VeiculosWeb.Service
         }
 
 
-        private async Task<List<Brand>> GetAPIBrands()
+        private async Task<List<(int Code, string Name)>> GetAPIBrands()
         {
             using HttpClient client = new();
             string response = await client.GetStringAsync(UrlAPIFIPE);
 
-            var brands = JsonConvert.DeserializeObject<IEnumerable<dynamic>>(response) ?? throw new NullReferenceException($"Não foi encontrada nenhuma marca");
+            var brands = JsonConvert.DeserializeObject<IEnumerable<BrandDTO>>(response) ?? throw new NullReferenceException($"Não foi encontrada nenhuma marca");
 
-            return brands.Select(b => new Brand
-            {
-                Code = b.codigo,
-                Name = b.nome
-            }).ToList();
+            return brands.Select(b => (
+                Code: b.Codigo,
+                Name: b.Nome
+            )).ToList();
+        }
+        
+        private class BrandDTO
+        {
+            public int Codigo { get; set; }
+            public string Nome { get; set; }
         }
     }
 }

@@ -207,6 +207,7 @@ namespace VeiculosWeb.API
         {
             builder.Services.AddScoped<IBrandRepository, BrandRepository>();
             builder.Services.AddScoped<IFuelRepository, FuelRepository>();
+            builder.Services.AddScoped<IModelRepository, ModelRepository>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
         }
 
@@ -215,6 +216,7 @@ namespace VeiculosWeb.API
             builder.Services.AddScoped<IAccountService, AccountService>();
             builder.Services.AddScoped<IBrandService, BrandService>();
             builder.Services.AddScoped<IFuelService, FuelService>();
+            builder.Services.AddScoped<IModelService, ModelService>();
             builder.Services.AddScoped<IEmailService, EmailService>();
             builder.Services.AddScoped<ITokenService, TokenService>();
             builder.Services.AddScoped<IGoogleCloudStorageService, GoogleCloudStorageService>();
