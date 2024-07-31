@@ -20,7 +20,16 @@ namespace VeiculosWeb.Service
             {
                 responseDTO.Object = await modelRepository
                     .GetEntities()
-                    .Include(x => x.Brand)
+                    .Select(x=>new
+                    {
+                        x.Id,
+                        BrandCode = x.Brand.Code,
+                        BrandName = x.Brand.Name,
+                        x.Code,
+                        x.Name,
+                        x.CreatedAt,
+                        x.UpdatedAt
+                    })
                     .OrderBy(x => x.Name)
                     .ToListAsync();
             }

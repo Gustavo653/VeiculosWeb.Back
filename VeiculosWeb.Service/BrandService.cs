@@ -18,7 +18,23 @@ namespace VeiculosWeb.Service
             ResponseDTO responseDTO = new();
             try
             {
-                responseDTO.Object = await brandRepository.GetEntities().OrderBy(x => x.Name).ToListAsync();
+                responseDTO.Object = await brandRepository
+                    .GetEntities()
+                    .Select(x=> new
+                    {
+                        x.Id,
+                        x.Code,
+                        x.Name,
+                        Models = x.Models.Select(y => new
+                        {
+                            y.Code,
+                            y.Name
+                        }),
+                        x.CreatedAt,
+                        x.UpdatedAt
+                    })
+                    .OrderBy(x => x.Name)
+                    .ToListAsync();
             }
             catch (Exception ex)
             {
