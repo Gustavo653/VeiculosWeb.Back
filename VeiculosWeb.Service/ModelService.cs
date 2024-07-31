@@ -56,7 +56,7 @@ namespace VeiculosWeb.Service
             return Task.FromResult(responseDTO);
         }
 
-        private async Task CreateOrUpdateModels(VehicleType vehicleType)
+        public async Task CreateOrUpdateModels(VehicleType vehicleType)
         {
             Log.Information("Buscando marcas do banco");
             var brands = await brandRepository.GetTrackedEntities().Where(x => x.VehicleType == vehicleType).ToListAsync();

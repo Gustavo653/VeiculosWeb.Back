@@ -58,7 +58,7 @@ namespace VeiculosWeb.Service
             return Task.FromResult(responseDTO);
         }
 
-        private async Task CreateOrUpdateBrands(VehicleType vehicleType)
+        public async Task CreateOrUpdateBrands(VehicleType vehicleType)
         {
             Log.Information("Buscando marcas da API");
             var apiBrands = await GetAPIBrands(vehicleType);
