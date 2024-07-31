@@ -1,5 +1,5 @@
-using VeiculosWeb.Domain.Enum;
 using Microsoft.AspNetCore.Identity;
+using VeiculosWeb.Domain.Enum;
 
 namespace VeiculosWeb.Domain.Base
 {

@@ -1,6 +1,6 @@
-﻿using VeiculosWeb.Domain.Base;
+﻿using VeiculosWeb.Domain.Shared;
 
-namespace VeiculosWeb.Domain.Shared;
+namespace VeiculosWeb.Domain.Location;
 
 public class City : BasicEntity
 {

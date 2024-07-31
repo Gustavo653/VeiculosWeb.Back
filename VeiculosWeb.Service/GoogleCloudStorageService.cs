@@ -2,6 +2,7 @@
 using Google.Apis.Auth.OAuth2;
 using Google.Cloud.Storage.V1;
 using Microsoft.AspNetCore.Http;
+using VeiculosWeb.Infrastructure.Service;
 
 namespace VeiculosWeb.Service
 {

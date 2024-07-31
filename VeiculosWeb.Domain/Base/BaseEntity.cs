@@ -21,7 +21,7 @@ namespace VeiculosWeb.Domain.Base
             CreatedAt = DateTime.Now;
             SetUpdatedAt();
         }
-        
+
         public void SetUpdatedAt()
         {
             UpdatedAt = DateTime.Now;

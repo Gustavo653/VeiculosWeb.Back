@@ -1,4 +1,8 @@
 using Hangfire;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Serilog;
 using VeiculosWeb.Domain.Base;
 using VeiculosWeb.Domain.Enum;
 using VeiculosWeb.DTO;
@@ -6,10 +10,6 @@ using VeiculosWeb.DTO.Base;
 using VeiculosWeb.Infrastructure.Repository;
 using VeiculosWeb.Infrastructure.Service;
 using VeiculosWeb.Utils;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Serilog;
 
 namespace VeiculosWeb.Service
 {
@@ -167,9 +167,9 @@ namespace VeiculosWeb.Service
             try
             {
                 Log.Information("Role do usuário do DTO: {role}", userDTO.Role);
-                var requestUser = await userRepository.GetEntities().FirstOrDefaultAsync(x=>x.Id == Session.GetString(Consts.ClaimUserId)!);
+                var requestUser = await userRepository.GetEntities().FirstOrDefaultAsync(x => x.Id == Session.GetString(Consts.ClaimUserId)!);
 
-                if(requestUser!.Id != id.ToString() && requestUser.Role != RoleName.Admin)
+                if (requestUser!.Id != id.ToString() && requestUser.Role != RoleName.Admin)
                 {
                     responseDTO.SetForbidden($"Não é possível editar outro usuário");
                     return responseDTO;

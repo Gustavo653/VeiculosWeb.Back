@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using VeiculosWeb.DTO.Base;
+﻿using VeiculosWeb.DTO.Base;
 
 namespace VeiculosWeb.DTO
 {

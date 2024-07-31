@@ -1,10 +1,6 @@
-﻿using VeiculosWeb.Domain.Base;
-using VeiculosWeb.Domain.Shared;
-using VeiculosWeb.Utils;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System.Text;
+using VeiculosWeb.Domain.Base;
 using VeiculosWeb.Domain.CarSpecification;
 
 namespace VeiculosWeb.Persistence

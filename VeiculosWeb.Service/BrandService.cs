@@ -1,16 +1,10 @@
-using System.Net.Http;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using VeiculosWeb.DTO;
-using VeiculosWeb.Infrastructure.Repository;
-using VeiculosWeb.Domain.CarSpecification;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using VeiculosWeb.DTO.Base;
-using VeiculosWeb.Infrastructure.Service;
-using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 using Serilog;
+using VeiculosWeb.Domain.CarSpecification;
+using VeiculosWeb.DTO.Base;
+using VeiculosWeb.Infrastructure.Repository;
+using VeiculosWeb.Infrastructure.Service;
 
 namespace VeiculosWeb.Service
 {

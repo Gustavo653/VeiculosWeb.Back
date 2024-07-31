@@ -1,13 +1,5 @@
 using Hangfire;
 using Hangfire.PostgreSql;
-using VeiculosWeb.DataAccess;
-using VeiculosWeb.Domain.Base;
-using VeiculosWeb.Domain.Enum;
-using VeiculosWeb.Infrastructure.Repository;
-using VeiculosWeb.Infrastructure.Service;
-using VeiculosWeb.Persistence;
-using VeiculosWeb.Service;
-using VeiculosWeb.Utils;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +8,14 @@ using Microsoft.OpenApi.Models;
 using Serilog;
 using System.Text;
 using System.Text.Json.Serialization;
+using VeiculosWeb.DataAccess;
+using VeiculosWeb.Domain.Base;
+using VeiculosWeb.Domain.Enum;
+using VeiculosWeb.Infrastructure.Repository;
+using VeiculosWeb.Infrastructure.Service;
+using VeiculosWeb.Persistence;
+using VeiculosWeb.Service;
+using VeiculosWeb.Utils;
 
 namespace VeiculosWeb.API
 {

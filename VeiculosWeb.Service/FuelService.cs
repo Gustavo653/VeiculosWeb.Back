@@ -1,11 +1,10 @@
-using VeiculosWeb.Domain.Shared;
+using Microsoft.EntityFrameworkCore;
+using Serilog;
+using VeiculosWeb.Domain.CarSpecification;
 using VeiculosWeb.DTO;
 using VeiculosWeb.DTO.Base;
 using VeiculosWeb.Infrastructure.Repository;
 using VeiculosWeb.Infrastructure.Service;
-using Microsoft.EntityFrameworkCore;
-using Serilog;
-using VeiculosWeb.Domain.CarSpecification;
 
 namespace VeiculosWeb.Service
 {

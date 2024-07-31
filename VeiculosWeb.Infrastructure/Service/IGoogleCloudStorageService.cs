@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace VeiculosWeb.Service
+namespace VeiculosWeb.Infrastructure.Service
 {
     public interface IGoogleCloudStorageService
     {

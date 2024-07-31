@@ -1,5 +1,5 @@
-using VeiculosWeb.Domain.Enum;
 using System.ComponentModel.DataAnnotations;
+using VeiculosWeb.Domain.Enum;
 
 namespace VeiculosWeb.DTO
 {

@@ -1,4 +1,6 @@
-﻿namespace VeiculosWeb.Domain.Shared;
+﻿using VeiculosWeb.Domain.Shared;
+
+namespace VeiculosWeb.Domain.Location;
 
 public class State : BasicEntity
 {

@@ -1,8 +1,8 @@
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using VeiculosWeb.Domain.Enum;
 using VeiculosWeb.DTO;
 using VeiculosWeb.Infrastructure.Service;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 
 namespace VeiculosWeb.API.Controllers
 {

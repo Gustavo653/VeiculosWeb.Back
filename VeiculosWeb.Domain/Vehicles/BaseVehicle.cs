@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VeiculosWeb.Domain.Base;
+﻿using VeiculosWeb.Domain.Base;
 using VeiculosWeb.Domain.CarSpecification;
-using VeiculosWeb.Domain.Shared;
+using VeiculosWeb.Domain.Location;
 
 namespace VeiculosWeb.Domain.Vehicles
 {

@@ -1,6 +1,6 @@
-﻿using VeiculosWeb.Infrastructure.Service;
-using System.Net;
+﻿using System.Net;
 using System.Net.Mail;
+using VeiculosWeb.Infrastructure.Service;
 
 namespace VeiculosWeb.Service
 {
