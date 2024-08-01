@@ -72,39 +72,35 @@ namespace VeiculosWeb.Service
             Log.Information("Validando as marcas");
             foreach (var apiBrand in apiBrands)
             {
-                if (repositoryBrandsDict.TryGetValue(apiBrand.Code, out var repositoryBrand))
+                if (repositoryBrandsDict.TryGetValue(apiBrand.Codigo, out var repositoryBrand))
                 {
-                    if (repositoryBrand.Name != apiBrand.Name)
+                    if (repositoryBrand.Name != apiBrand.Nome)
                     {
-                        Log.Warning($"Atualizando a marca {repositoryBrand.Code} de {repositoryBrand.Name} para {apiBrand.Name}");
-                        repositoryBrand.Name = apiBrand.Name;
+                        Log.Warning($"Atualizando a marca {repositoryBrand.Code} de {repositoryBrand.Name} para {apiBrand.Nome}");
+                        repositoryBrand.Name = apiBrand.Nome;
                         brandRepository.Update(repositoryBrand);
                     }
                 }
                 else
                 {
-                    Log.Warning($"Criando a marca {apiBrand.Name}");
-                    await brandRepository.InsertAsync(new Brand { Name = apiBrand.Name, Code = apiBrand.Code, VehicleType = vehicleType});
+                    Log.Warning($"Criando a marca {apiBrand.Nome}");
+                    await brandRepository.InsertAsync(new Brand { Name = apiBrand.Nome, Code = apiBrand.Codigo, VehicleType = vehicleType});
                 }
             }
 
             await brandRepository.SaveChangesAsync();
         }
 
-        private async Task<List<(int Code, string Name, VehicleType Type)>> GetAPIBrands(VehicleType vehicleType)
+        private async Task<List<BrandDTO>> GetAPIBrands(VehicleType vehicleType)
         {
             using HttpClient client = new();
-            var url = $"{Consts.UrlBaseAPIFipe}{(vehicleType == VehicleType.Bike ? "motos" : "carros")}/marcas";
+            var url = $"{Consts.UrlBaseFipe}{(vehicleType == VehicleType.Bike ? "motos" : "carros")}/marcas";
             string response = await client.GetStringAsync(url);
 
-            var brands = JsonConvert.DeserializeObject<IEnumerable<BrandDTO>>(response) ?? 
+            var brands = JsonConvert.DeserializeObject<List<BrandDTO>>(response) ?? 
                          throw new NullReferenceException($"Não foi encontrada nenhuma marca");
 
-            return brands.Select(b => (
-                Code: b.Codigo,
-                Name: b.Nome,
-                Type: vehicleType
-            )).ToList();
+            return brands;
         }
 
         private record BrandDTO

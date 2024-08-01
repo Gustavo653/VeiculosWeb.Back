@@ -73,39 +73,35 @@ namespace VeiculosWeb.Service
                 Log.Information("Validando os modelos");
                 foreach (var apiModel in apiModels)
                 {
-                    if (repositoryModelsDict.TryGetValue(apiModel.Code, out var repositoryModel))
+                    if (repositoryModelsDict.TryGetValue(apiModel.Codigo, out var repositoryModel))
                     {
-                        if (repositoryModel.Name != apiModel.Name)
+                        if (repositoryModel.Name != apiModel.Nome)
                         {
-                            Log.Warning($"Atualizando o modelo {repositoryModel.Code} de {repositoryModel.Name} para {apiModel.Name}");
-                            repositoryModel.Name = apiModel.Name;
+                            Log.Warning($"Atualizando o modelo {repositoryModel.Code} de {repositoryModel.Name} para {apiModel.Nome}");
+                            repositoryModel.Name = apiModel.Nome;
                             modelRepository.Update(repositoryModel);
                         }
                     }
                     else
                     {
-                        Log.Warning($"Criando o modelo {apiModel.Name}");
-                        await modelRepository.InsertAsync(new Model() { Name = apiModel.Name, Code = apiModel.Code, Brand = brand, VehicleType = vehicleType});
+                        Log.Warning($"Criando o modelo {apiModel.Nome}");
+                        await modelRepository.InsertAsync(new Model() { Name = apiModel.Nome, Code = apiModel.Codigo, Brand = brand, VehicleType = vehicleType});
                     }
                 }
                 await modelRepository.SaveChangesAsync();
             }
         }
 
-        private async Task<List<(int Code, string Name, VehicleType Type)>> GetAPIModels(VehicleType vehicleType, int brandCode)
+        private async Task<List<ModelDTO>> GetAPIModels(VehicleType vehicleType, int brandCode)
         {
             using HttpClient client = new();
-            var url = $"{Consts.UrlBaseAPIFipe}{(vehicleType == VehicleType.Bike ? "motos" : "carros")}/marcas/{brandCode}/modelos";
+            var url = $"{Consts.UrlBaseFipe}{(vehicleType == VehicleType.Bike ? "motos" : "carros")}/marcas/{brandCode}/modelos";
             
             string response = await client.GetStringAsync(url);
             var models = JsonConvert.DeserializeObject<ModelsResponseDTO>(response) ?? 
-                         throw new NullReferenceException($"Não foi encontrado nenhum modelo");
-            
-            return models.Modelos.Select(b => (
-                Code: b.Codigo,
-                Name: b.Nome,
-                Type: vehicleType
-            )).ToList();
+                         throw new NullReferenceException("Não foi encontrado nenhum modelo");
+
+            return models.Modelos;
         }
         
         private class ModelDTO
