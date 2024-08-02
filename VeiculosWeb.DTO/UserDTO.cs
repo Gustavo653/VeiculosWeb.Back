@@ -10,7 +10,6 @@ namespace VeiculosWeb.DTO
         public required string Email { get; set; }
         [Required]
         public required string Name { get; set; }
-        [Required]
-        public required RoleName Role { get; set; }
+        public RoleName Role { get; set; } = RoleName.Basic;
     }
 }

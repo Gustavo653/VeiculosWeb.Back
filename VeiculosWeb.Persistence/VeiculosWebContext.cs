@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using System.Security.Cryptography.X509Certificates;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using VeiculosWeb.Domain.Base;
 using VeiculosWeb.Domain.Location;
+using VeiculosWeb.Domain.Vehicles;
 using VeiculosWeb.Domain.VehicleSpecification;
 
 namespace VeiculosWeb.Persistence
@@ -17,6 +19,8 @@ namespace VeiculosWeb.Persistence
         public DbSet<Feature> Features { get; set; }
         public DbSet<Gearbox> Gearboxes { get; set; }
         public DbSet<Image> Images { get; set; }
+        public DbSet<Car> Cars { get; set; }
+        public DbSet<Bike> Bikes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

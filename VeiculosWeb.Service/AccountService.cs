@@ -115,10 +115,10 @@ namespace VeiculosWeb.Service
                 if (userDTO.Role == RoleName.Admin)
                 {
                     var requestUser = await userManager.FindByIdAsync(Session.GetString(Consts.ClaimUserId)!);
-                    var requestUserRoleAdmin = requestUser!.Role == RoleName.Admin;
+                    var requestUserRoleAdmin = requestUser?.Role == RoleName.Admin;
                     if (!requestUserRoleAdmin)
                     {
-                        responseDTO.SetForbidden($"O usuário {requestUser!.Id} não pertence ao role {RoleName.Admin}");
+                        responseDTO.SetForbidden($"O usuário {requestUser?.Id} não pertence ao role {RoleName.Admin}");
                         return responseDTO;
                     }
                 }
@@ -150,8 +150,8 @@ namespace VeiculosWeb.Service
                 await userRepository.SaveChangesAsync();
 
                 Log.Information("Usuário adicionado no role: {role}", userDTO.Role);
-                BackgroundJob.Enqueue(() => emailService.SendEmail("Solicitação para confirmar email - It's Check", emailService.BuildConfirmEmailText(userEntity.Email, userEntity.SecurityStamp!), userEntity.Email));
-                responseDTO.Object = userEntity;
+                BackgroundJob.Enqueue(() => emailService.SendEmail("Solicitação para confirmar email - VeiculosWeb", emailService.BuildConfirmEmailText(userEntity.Email, userEntity.SecurityStamp!), userEntity.Email));
+                responseDTO.Object = userDTO;
             }
             catch (Exception ex)
             {
@@ -169,7 +169,7 @@ namespace VeiculosWeb.Service
                 Log.Information("Role do usuário do DTO: {role}", userDTO.Role);
                 var requestUser = await userRepository.GetEntities().FirstOrDefaultAsync(x => x.Id == Session.GetString(Consts.ClaimUserId)!);
 
-                if (requestUser!.Id != id.ToString() && requestUser.Role != RoleName.Admin)
+                if (requestUser?.Id != id.ToString() && requestUser?.Role != RoleName.Admin)
                 {
                     responseDTO.SetForbidden("Não é possível editar outro usuário");
                     return responseDTO;
@@ -177,10 +177,10 @@ namespace VeiculosWeb.Service
 
                 if (userDTO.Role == RoleName.Admin)
                 {
-                    var requestUserRoleAdmin = requestUser!.Role == RoleName.Admin;
+                    var requestUserRoleAdmin = requestUser.Role == RoleName.Admin;
                     if (!requestUserRoleAdmin)
                     {
-                        responseDTO.SetForbidden($"O usuário {requestUser!.Id} não pertence ao role {RoleName.Admin}");
+                        responseDTO.SetForbidden($"O usuário {requestUser.Id} não pertence ao role {RoleName.Admin}");
                         return responseDTO;
                     }
                 }
@@ -205,7 +205,7 @@ namespace VeiculosWeb.Service
 
                 await userRepository.SaveChangesAsync();
 
-                responseDTO.Object = userEntity;
+                responseDTO.Object = userDTO;
             }
             catch (Exception ex)
             {
@@ -285,7 +285,7 @@ namespace VeiculosWeb.Service
                     return responseDTO;
                 }
 
-                BackgroundJob.Enqueue(() => emailService.SendEmail("Solicitação para redefinir senha - It's Check", emailService.BuildResetPasswordText(email, user.SecurityStamp!), email));
+                BackgroundJob.Enqueue(() => emailService.SendEmail("Solicitação para redefinir senha - VeiculosWeb", emailService.BuildResetPasswordText(email, user.SecurityStamp!), email));
                 responseDTO.Message = "Em breve, confira seu email!";
             }
             catch (Exception ex)
