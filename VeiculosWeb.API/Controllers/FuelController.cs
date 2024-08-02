@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OutputCaching;
 using VeiculosWeb.Domain.Enum;
 using VeiculosWeb.DTO;
 using VeiculosWeb.Infrastructure.Service;
+using VeiculosWeb.Utils;
 
 namespace VeiculosWeb.API.Controllers
 {
@@ -33,6 +35,7 @@ namespace VeiculosWeb.API.Controllers
         }
 
         [HttpGet("")]
+        [OutputCache(PolicyName = "CacheImmutableResponse", Duration = Consts.CacheTimeout)]
         [AllowAnonymous]
         public async Task<IActionResult> GetFuels()
         {

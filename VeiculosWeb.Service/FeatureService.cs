@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using VeiculosWeb.Domain.CarSpecification;
+using VeiculosWeb.Domain.Enum;
 using VeiculosWeb.DTO;
 using VeiculosWeb.DTO.Base;
 using VeiculosWeb.Infrastructure.Repository;
@@ -18,7 +19,7 @@ namespace VeiculosWeb.Service
                 var featureExists = await featureRepository.GetEntities().AnyAsync(c => c.Name == featureDTO.Name);
                 if (featureExists)
                 {
-                    responseDTO.SetBadInput($"O recurso {featureDTO.Name} já existe!");
+                    responseDTO.SetBadInput($"O opcional {featureDTO.Name} já existe!");
                     return responseDTO;
                 }
 
@@ -30,7 +31,7 @@ namespace VeiculosWeb.Service
                 await featureRepository.InsertAsync(feature);
 
                 await featureRepository.SaveChangesAsync();
-                Log.Information("Recurso persistido id: {id}", feature.Id);
+                Log.Information("Opcional persistido id: {id}", feature.Id);
 
                 responseDTO.Object = feature;
             }
@@ -49,7 +50,7 @@ namespace VeiculosWeb.Service
                 var feature = await featureRepository.GetTrackedEntities().FirstOrDefaultAsync(c => c.Id == id);
                 if (feature == null)
                 {
-                    responseDTO.SetBadInput($"O recurso {featureDTO.Name} não existe!");
+                    responseDTO.SetBadInput($"O opcional {featureDTO.Name} não existe!");
                     return responseDTO;
                 }
 
@@ -58,7 +59,7 @@ namespace VeiculosWeb.Service
                 feature.SetUpdatedAt();
 
                 await featureRepository.SaveChangesAsync();
-                Log.Information("Recurso persistido id: {id}", feature.Id);
+                Log.Information("Opcional persistido id: {id}", feature.Id);
 
                 responseDTO.Object = feature;
             }
@@ -77,12 +78,12 @@ namespace VeiculosWeb.Service
                 var feature = await featureRepository.GetTrackedEntities().FirstOrDefaultAsync(c => c.Id == id);
                 if (feature == null)
                 {
-                    responseDTO.SetBadInput($"O recurso com id: {id} não existe!");
+                    responseDTO.SetBadInput($"O opcional com id: {id} não existe!");
                     return responseDTO;
                 }
                 featureRepository.Delete(feature);
                 await featureRepository.SaveChangesAsync();
-                Log.Information("Recurso removido id: {id}", feature.Id);
+                Log.Information("Opcional removido id: {id}", feature.Id);
 
                 responseDTO.Object = feature;
             }
@@ -93,12 +94,17 @@ namespace VeiculosWeb.Service
             return responseDTO;
         }
 
-        public async Task<ResponseDTO> GetList()
+        public Task<ResponseDTO> GetList()
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<ResponseDTO> GetFeaturesByVehicleType(VehicleType vehicleType)
         {
             ResponseDTO responseDTO = new();
             try
             {
-                responseDTO.Object = await featureRepository.GetEntities().ToListAsync();
+                responseDTO.Object = await featureRepository.GetEntities().Where(x => x.VehicleType == vehicleType).ToListAsync();
             }
             catch (Exception ex)
             {
