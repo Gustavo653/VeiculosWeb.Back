@@ -18,7 +18,7 @@ namespace VeiculosWeb.API.Controllers
             return StatusCode(fuel.Code, fuel);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id:guid}")]
         [Authorize(Roles = nameof(RoleName.Admin))]
         public async Task<IActionResult> UpdateFuel([FromRoute] Guid id, [FromBody] FuelDTO fuelDTO)
         {
@@ -26,7 +26,7 @@ namespace VeiculosWeb.API.Controllers
             return StatusCode(fuel.Code, fuel);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:guid}")]
         [Authorize(Roles = nameof(RoleName.Admin))]
         public async Task<IActionResult> RemoveFuel([FromRoute] Guid id)
         {

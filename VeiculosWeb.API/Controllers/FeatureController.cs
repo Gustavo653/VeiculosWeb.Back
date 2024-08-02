@@ -18,7 +18,7 @@ namespace VeiculosWeb.API.Controllers
             return StatusCode(feature.Code, feature);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id:guid}")]
         [Authorize(Roles = nameof(RoleName.Admin))]
         public async Task<IActionResult> UpdateFeature([FromRoute] Guid id, [FromBody] FeatureDTO featureDTO)
         {
@@ -26,7 +26,7 @@ namespace VeiculosWeb.API.Controllers
             return StatusCode(feature.Code, feature);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:guid}")]
         [Authorize(Roles = nameof(RoleName.Admin))]
         public async Task<IActionResult> RemoveFeature([FromRoute] Guid id)
         {

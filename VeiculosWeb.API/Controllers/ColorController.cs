@@ -18,7 +18,7 @@ namespace VeiculosWeb.API.Controllers
             return StatusCode(color.Code, color);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id:guid}")]
         [Authorize(Roles = nameof(RoleName.Admin))]
         public async Task<IActionResult> UpdateColor([FromRoute] Guid id, [FromBody] ColorDTO colorDTO)
         {
@@ -26,7 +26,7 @@ namespace VeiculosWeb.API.Controllers
             return StatusCode(color.Code, color);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:guid}")]
         [Authorize(Roles = nameof(RoleName.Admin))]
         public async Task<IActionResult> RemoveColor([FromRoute] Guid id)
         {

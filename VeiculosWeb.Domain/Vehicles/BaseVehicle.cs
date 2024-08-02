@@ -6,6 +6,7 @@ namespace VeiculosWeb.Domain.Vehicles
 {
     public abstract class BaseVehicle : BaseEntity
     {
+        public required User User { get; set; }
         public required Brand Brand { get; set; }
         public required Model Model { get; set; }
         public float? Mileage { get; set; }

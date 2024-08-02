@@ -1,6 +1,6 @@
 ﻿namespace VeiculosWeb.Domain.Vehicles
 {
-    internal class Bike : BaseVehicle
+    public class Bike : BaseVehicle
     {
     }
 }

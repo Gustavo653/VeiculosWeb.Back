@@ -39,14 +39,14 @@ namespace VeiculosWeb.API.Controllers
             return StatusCode(user.Code, user);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id:guid}")]
         public async Task<IActionResult> UpdateUser([FromRoute] Guid id, [FromBody] UserDTO userDTO)
         {
             var user = await accountService.UpdateUser(id, userDTO);
             return StatusCode(user.Code, user);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:guid}")]
         public async Task<IActionResult> RemoveUser([FromRoute] Guid id)
         {
             var user = await accountService.RemoveUser(id);

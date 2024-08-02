@@ -18,7 +18,7 @@ namespace VeiculosWeb.API.Controllers
             return StatusCode(gearbox.Code, gearbox);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id:guid}")]
         [Authorize(Roles = nameof(RoleName.Admin))]
         public async Task<IActionResult> UpdateGearbox([FromRoute] Guid id, [FromBody] GearboxDTO gearboxDTO)
         {
@@ -26,7 +26,7 @@ namespace VeiculosWeb.API.Controllers
             return StatusCode(gearbox.Code, gearbox);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:guid}")]
         [Authorize(Roles = nameof(RoleName.Admin))]
         public async Task<IActionResult> RemoveGearbox([FromRoute] Guid id)
         {

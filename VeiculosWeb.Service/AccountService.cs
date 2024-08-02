@@ -171,7 +171,7 @@ namespace VeiculosWeb.Service
 
                 if (requestUser!.Id != id.ToString() && requestUser.Role != RoleName.Admin)
                 {
-                    responseDTO.SetForbidden($"Não é possível editar outro usuário");
+                    responseDTO.SetForbidden("Não é possível editar outro usuário");
                     return responseDTO;
                 }
 
@@ -223,7 +223,7 @@ namespace VeiculosWeb.Service
                 var requestUser = await userRepository.GetEntities().FirstOrDefaultAsync(x => x.Id == Session.GetString(Consts.ClaimUserId)!);
                 if (requestUser!.Id != id.ToString() && requestUser.Role != RoleName.Admin)
                 {
-                    responseDTO.SetForbidden($"Não é possível editar outro usuário");
+                    responseDTO.SetForbidden("Não é possível editar outro usuário");
                     return responseDTO;
                 }
 

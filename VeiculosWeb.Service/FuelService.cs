@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Serilog;
-using VeiculosWeb.Domain.CarSpecification;
+using VeiculosWeb.Domain.VehicleSpecification;
 using VeiculosWeb.DTO;
 using VeiculosWeb.DTO.Base;
 using VeiculosWeb.Infrastructure.Repository;

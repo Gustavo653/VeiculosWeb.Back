@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Serilog;
-using VeiculosWeb.Domain.CarSpecification;
 using VeiculosWeb.Domain.Enum;
+using VeiculosWeb.Domain.VehicleSpecification;
 using VeiculosWeb.DTO.Base;
 using VeiculosWeb.Infrastructure.Repository;
 using VeiculosWeb.Infrastructure.Service;

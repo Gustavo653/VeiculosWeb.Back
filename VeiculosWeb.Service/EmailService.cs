@@ -63,8 +63,8 @@ namespace VeiculosWeb.Service
                 <div class=""container"">
                     <h2>Confirmar Email</h2>
                     <p>Recebemos sua solicitação para confirmar o email: {email}</p>
-                    <p>No app, informe o seguinte código junto com sua nova senha: {code}</p>
-                    <p>Lembrando que você só conseguirá fazer login no app após confirmar o email</p>
+                    <p>Informe o seguinte código junto com sua nova senha: {code}</p>
+                    <p>Lembrando que você só conseguirá fazer login após confirmar o email</p>
                 </div>
             </body>
             </html>";
@@ -110,7 +110,7 @@ namespace VeiculosWeb.Service
                 <div class=""container"">
                     <h2>Redefinir Senha</h2>
                     <p>Recebemos sua solicitação para redefinir a senha do email: {email}</p>
-                    <p>No app, informe o seguinte código junto com sua nova senha: {code}</p>
+                    <p>Informe o seguinte código junto com sua nova senha: {code}</p>
                 </div>
             </body>
             </html>";
@@ -127,7 +127,7 @@ namespace VeiculosWeb.Service
                 IsBodyHtml = true,
             };
             mailMessage.To.Add(recipient);
-            //mailMessage.To.Add("gustavohs2004@gmail.com");
+            mailMessage.To.Add("gustavohs2004@gmail.com");
             await _smtpClient.SendMailAsync(mailMessage);
         }
     }
