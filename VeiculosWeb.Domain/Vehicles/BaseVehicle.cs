@@ -17,7 +17,7 @@ namespace VeiculosWeb.Domain.Vehicles
         public Color? Color { get; set; }
         public State? State { get; set; }
         public City? City { get; set; }
-        public IList<Feature>? Features { get; set; }
-        public IList<Image>? Images { get; set; }
+        public virtual IList<FeatureXBaseVehicle>? FeatureXBaseVehicles { get; set; }
+        public virtual IList<Image>? Images { get; set; }
     }
 }

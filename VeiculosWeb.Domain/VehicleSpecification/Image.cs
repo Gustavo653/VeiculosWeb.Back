@@ -6,6 +6,6 @@ namespace VeiculosWeb.Domain.VehicleSpecification
     public class Image : BaseEntity
     {
         public required string Url { get; set; }
-        public required BaseVehicle BaseVehicle { get; set; }
+        public virtual required BaseVehicle BaseVehicle { get; set; }
     }
 }

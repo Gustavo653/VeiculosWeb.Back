@@ -8,6 +8,6 @@ namespace VeiculosWeb.Domain.VehicleSpecification
         public required VehicleType VehicleType { get; set; }
         public required int Code { get; set; }
         public Guid BrandId { get; set; }
-        public required Brand Brand { get; set; }
+        public virtual required Brand Brand { get; set; }
     }
 }

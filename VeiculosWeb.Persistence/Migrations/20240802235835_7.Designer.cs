@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using VeiculosWeb.Persistence;
@@ -11,9 +12,11 @@ using VeiculosWeb.Persistence;
 namespace VeiculosWeb.Persistence.Migrations
 {
     [DbContext(typeof(VeiculosWebContext))]
-    partial class VeiculosWebContextModelSnapshot : ModelSnapshot
+    [Migration("20240802235835_7")]
+    partial class _7
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

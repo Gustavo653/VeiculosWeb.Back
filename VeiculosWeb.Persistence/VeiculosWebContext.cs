@@ -19,6 +19,7 @@ namespace VeiculosWeb.Persistence
         public DbSet<Feature> Features { get; set; }
         public DbSet<Gearbox> Gearboxes { get; set; }
         public DbSet<Image> Images { get; set; }
+        public DbSet<FeatureXBaseVehicle> FeatureXBaseVehicles { get; set; }
         public DbSet<Car> Cars { get; set; }
         public DbSet<Bike> Bikes { get; set; }
 
@@ -69,6 +70,11 @@ namespace VeiculosWeb.Persistence
             modelBuilder.Entity<Image>(x =>
             {
                 x.HasIndex(a => new { a.Url }).IsUnique();
+            });
+            
+            modelBuilder.Entity<FeatureXBaseVehicle>(x =>
+            {
+                x.HasIndex(a => new { a.FeatureId, a.BaseVehicleId }).IsUnique();
             });
         }
     }

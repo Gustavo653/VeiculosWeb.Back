@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using VeiculosWeb.Persistence;
@@ -11,9 +12,11 @@ using VeiculosWeb.Persistence;
 namespace VeiculosWeb.Persistence.Migrations
 {
     [DbContext(typeof(VeiculosWebContext))]
-    partial class VeiculosWebContextModelSnapshot : ModelSnapshot
+    [Migration("20240802222909_6")]
+    partial class _6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -348,6 +351,9 @@ namespace VeiculosWeb.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<Guid?>("BaseVehicleId")
+                        .HasColumnType("uuid");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp without time zone");
 
@@ -363,38 +369,12 @@ namespace VeiculosWeb.Persistence.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("BaseVehicleId");
+
                     b.HasIndex("Name", "VehicleType")
                         .IsUnique();
 
                     b.ToTable("Features");
-                });
-
-            modelBuilder.Entity("VeiculosWeb.Domain.VehicleSpecification.FeatureXBaseVehicle", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("BaseVehicleId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<Guid>("FeatureId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BaseVehicleId");
-
-                    b.HasIndex("FeatureId", "BaseVehicleId")
-                        .IsUnique();
-
-                    b.ToTable("FeatureXBaseVehicles");
                 });
 
             modelBuilder.Entity("VeiculosWeb.Domain.VehicleSpecification.Fuel", b =>
@@ -660,23 +640,11 @@ namespace VeiculosWeb.Persistence.Migrations
                     b.Navigation("State");
                 });
 
-            modelBuilder.Entity("VeiculosWeb.Domain.VehicleSpecification.FeatureXBaseVehicle", b =>
+            modelBuilder.Entity("VeiculosWeb.Domain.VehicleSpecification.Feature", b =>
                 {
-                    b.HasOne("VeiculosWeb.Domain.Vehicles.BaseVehicle", "BaseVehicle")
-                        .WithMany("FeatureXBaseVehicles")
-                        .HasForeignKey("BaseVehicleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("VeiculosWeb.Domain.VehicleSpecification.Feature", "Feature")
-                        .WithMany("FeatureXBaseVehicles")
-                        .HasForeignKey("FeatureId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("BaseVehicle");
-
-                    b.Navigation("Feature");
+                    b.HasOne("VeiculosWeb.Domain.Vehicles.BaseVehicle", null)
+                        .WithMany("Features")
+                        .HasForeignKey("BaseVehicleId");
                 });
 
             modelBuilder.Entity("VeiculosWeb.Domain.VehicleSpecification.Image", b =>
@@ -766,14 +734,9 @@ namespace VeiculosWeb.Persistence.Migrations
                     b.Navigation("Models");
                 });
 
-            modelBuilder.Entity("VeiculosWeb.Domain.VehicleSpecification.Feature", b =>
-                {
-                    b.Navigation("FeatureXBaseVehicles");
-                });
-
             modelBuilder.Entity("VeiculosWeb.Domain.Vehicles.BaseVehicle", b =>
                 {
-                    b.Navigation("FeatureXBaseVehicles");
+                    b.Navigation("Features");
 
                     b.Navigation("Images");
                 });
