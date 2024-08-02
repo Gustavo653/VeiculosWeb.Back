@@ -13,6 +13,10 @@ namespace VeiculosWeb.Persistence
         public DbSet<Model> Models { get; set; }
         public DbSet<State> States { get; set; }
         public DbSet<City> Cities { get; set; }
+        public DbSet<Color> Colors { get; set; }
+        public DbSet<Feature> Features { get; set; }
+        public DbSet<Gearbox> Gearboxes { get; set; }
+        public DbSet<Image> Images { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -41,6 +45,26 @@ namespace VeiculosWeb.Persistence
             modelBuilder.Entity<City>(x =>
             {
                 x.HasIndex(a => new { a.Code }).IsUnique();
+            });
+            
+            modelBuilder.Entity<Color>(x =>
+            {
+                x.HasIndex(a => new { a.Name }).IsUnique();
+            });
+            
+            modelBuilder.Entity<Feature>(x =>
+            {
+                x.HasIndex(a => new { a.Name, a.VehicleType }).IsUnique();
+            });
+            
+            modelBuilder.Entity<Gearbox>(x =>
+            {
+                x.HasIndex(a => new { a.Name }).IsUnique();
+            });
+            
+            modelBuilder.Entity<Image>(x =>
+            {
+                x.HasIndex(a => new { a.Url }).IsUnique();
             });
         }
     }
