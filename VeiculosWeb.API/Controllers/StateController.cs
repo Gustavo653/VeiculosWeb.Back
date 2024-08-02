@@ -16,7 +16,7 @@ namespace VeiculosWeb.API.Controllers
             var state = await stateService.SyncStates();
             return StatusCode(state.Code, state);
         }
-        
+
         [HttpGet("GetStates")]
         [OutputCache(PolicyName = "CacheImmutableResponse", Duration = Consts.CacheTimeout)]
         [AllowAnonymous]

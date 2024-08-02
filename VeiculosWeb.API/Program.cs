@@ -123,7 +123,7 @@ namespace VeiculosWeb.API
 
             app.UseSession();
             app.UseOutputCache();
-            
+
             app.UseAuthentication();
             app.UseAuthorization();
 

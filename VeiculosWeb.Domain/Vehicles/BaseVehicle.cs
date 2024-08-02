@@ -1,10 +1,10 @@
 ﻿using VeiculosWeb.Domain.Base;
-using VeiculosWeb.Domain.CarSpecification;
 using VeiculosWeb.Domain.Location;
+using VeiculosWeb.Domain.VehicleSpecification;
 
 namespace VeiculosWeb.Domain.Vehicles
 {
-    public class BaseVehicle : BaseEntity
+    public abstract class BaseVehicle : BaseEntity
     {
         public required Brand Brand { get; set; }
         public required Model Model { get; set; }

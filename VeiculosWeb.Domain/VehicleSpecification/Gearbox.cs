@@ -1,6 +1,6 @@
 ﻿using VeiculosWeb.Domain.Shared;
 
-namespace VeiculosWeb.Domain.CarSpecification
+namespace VeiculosWeb.Domain.VehicleSpecification
 {
     public class Gearbox : BasicEntity
     {

@@ -1,4 +1,4 @@
-﻿using VeiculosWeb.Domain.CarSpecification;
+﻿using VeiculosWeb.Domain.VehicleSpecification;
 using VeiculosWeb.Infrastructure.Repository;
 using VeiculosWeb.Persistence;
 

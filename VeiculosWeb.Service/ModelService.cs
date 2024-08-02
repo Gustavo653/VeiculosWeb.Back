@@ -69,7 +69,7 @@ namespace VeiculosWeb.Service
                 var repositoryModels = await modelRepository.GetEntities().Where(x => x.Brand == brand).ToListAsync();
                 Log.Information($"Foram encontrados {repositoryModels.Count} modelos no banco para a marca {brand.Name}");
                 var repositoryModelsDict = repositoryModels.ToDictionary(b => b.Code);
-                
+
                 Log.Information("Validando os modelos");
                 foreach (var apiModel in apiModels)
                 {
@@ -85,7 +85,7 @@ namespace VeiculosWeb.Service
                     else
                     {
                         Log.Warning($"Criando o modelo {apiModel.Nome}");
-                        await modelRepository.InsertAsync(new Model() { Name = apiModel.Nome, Code = apiModel.Codigo, Brand = brand, VehicleType = vehicleType});
+                        await modelRepository.InsertAsync(new Model() { Name = apiModel.Nome, Code = apiModel.Codigo, Brand = brand, VehicleType = vehicleType });
                     }
                 }
                 await modelRepository.SaveChangesAsync();
@@ -96,14 +96,14 @@ namespace VeiculosWeb.Service
         {
             using HttpClient client = new();
             var url = $"{Consts.UrlBaseFipe}{(vehicleType == VehicleType.Bike ? "motos" : "carros")}/marcas/{brandCode}/modelos";
-            
+
             string response = await client.GetStringAsync(url);
-            var models = JsonConvert.DeserializeObject<ModelsResponseDTO>(response) ?? 
+            var models = JsonConvert.DeserializeObject<ModelsResponseDTO>(response) ??
                          throw new NullReferenceException("Não foi encontrado nenhum modelo");
 
             return models.Modelos;
         }
-        
+
         private class ModelDTO
         {
             public int Codigo { get; set; }

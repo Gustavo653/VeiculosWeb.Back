@@ -1,4 +1,3 @@
-using VeiculosWeb.Domain.Enum;
 using VeiculosWeb.DTO.Base;
 
 namespace VeiculosWeb.Infrastructure.Service

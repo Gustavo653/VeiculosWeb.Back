@@ -16,11 +16,11 @@ namespace VeiculosWeb.API.Controllers
             var model = await modelService.SyncModels();
             return StatusCode(model.Code, model);
         }
-        
+
         [HttpGet("GetModelsByBrand/{vehicleType}/{brandId:Guid}")]
         [OutputCache(PolicyName = "CacheImmutableResponse", Duration = Consts.CacheTimeout)]
         [AllowAnonymous]
-        public async Task<IActionResult> GetModelsByBrand([FromRoute]VehicleType vehicleType, [FromRoute]Guid brandId)
+        public async Task<IActionResult> GetModelsByBrand([FromRoute] VehicleType vehicleType, [FromRoute] Guid brandId)
         {
             var model = await modelService.GetModelsByBrand(vehicleType, brandId);
             return StatusCode(model.Code, model);

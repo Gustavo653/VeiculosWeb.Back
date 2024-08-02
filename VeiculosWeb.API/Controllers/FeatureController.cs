@@ -37,7 +37,7 @@ namespace VeiculosWeb.API.Controllers
         [HttpGet("GetFeaturesByVehicleType/{vehicleType}")]
         [OutputCache(PolicyName = "CacheImmutableResponse", Duration = Consts.CacheTimeout)]
         [AllowAnonymous]
-        public async Task<IActionResult> GetFeaturesByVehicleType([FromRoute]VehicleType vehicleType)
+        public async Task<IActionResult> GetFeaturesByVehicleType([FromRoute] VehicleType vehicleType)
         {
             var feature = await featureService.GetFeaturesByVehicleType(vehicleType);
             return StatusCode(feature.Code, feature);

@@ -1,8 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Serilog;
-using VeiculosWeb.Domain.CarSpecification;
-using VeiculosWeb.Domain.Enum;
 using VeiculosWeb.Domain.Location;
 using VeiculosWeb.DTO.Base;
 using VeiculosWeb.Infrastructure.Repository;
@@ -66,7 +64,7 @@ namespace VeiculosWeb.Service
                 var repositoryCities = await cityRepository.GetEntities().Where(x => x.State == state).ToListAsync();
                 Log.Information($"Foram encontradas {repositoryCities.Count} cidades no banco para a marca {state.Name}");
                 var repositoryCitiesDict = repositoryCities.ToDictionary(b => b.Code);
-                
+
                 Log.Information("Validando as cidades");
                 foreach (var apiCity in apiCities)
                 {
@@ -91,16 +89,16 @@ namespace VeiculosWeb.Service
 
         private async Task<List<CityDTO>> GetAPICities(int id)
         {
-            using HttpClient client = new(); 
+            using HttpClient client = new();
             var url = $"{Consts.UrlBaseIBGE}/estados/{id}/municipios";
             string response = await client.GetStringAsync(url);
 
-            var cities = JsonConvert.DeserializeObject<List<CityDTO>>(response) ?? 
+            var cities = JsonConvert.DeserializeObject<List<CityDTO>>(response) ??
                          throw new NullReferenceException("Não foi encontrada nenhuma marca");
 
             return cities;
         }
-        
+
         private class CityDTO
         {
             public int Id { get; set; }

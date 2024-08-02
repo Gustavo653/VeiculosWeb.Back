@@ -16,11 +16,11 @@ namespace VeiculosWeb.API.Controllers
             var brand = await brandService.SyncBrands();
             return StatusCode(brand.Code, brand);
         }
-        
+
         [HttpGet("GetBrands/{vehicleType}")]
         [OutputCache(PolicyName = "CacheImmutableResponse", Duration = Consts.CacheTimeout)]
         [AllowAnonymous]
-        public async Task<IActionResult> GetBrands([FromRoute]VehicleType vehicleType)
+        public async Task<IActionResult> GetBrands([FromRoute] VehicleType vehicleType)
         {
             var brand = await brandService.GetBrands(vehicleType);
             return StatusCode(brand.Code, brand);

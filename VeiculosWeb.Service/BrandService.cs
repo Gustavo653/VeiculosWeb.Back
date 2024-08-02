@@ -84,7 +84,7 @@ namespace VeiculosWeb.Service
                 else
                 {
                     Log.Warning($"Criando a marca {apiBrand.Nome}");
-                    await brandRepository.InsertAsync(new Brand { Name = apiBrand.Nome, Code = apiBrand.Codigo, VehicleType = vehicleType});
+                    await brandRepository.InsertAsync(new Brand { Name = apiBrand.Nome, Code = apiBrand.Codigo, VehicleType = vehicleType });
                 }
             }
 
@@ -97,7 +97,7 @@ namespace VeiculosWeb.Service
             var url = $"{Consts.UrlBaseFipe}{(vehicleType == VehicleType.Bike ? "motos" : "carros")}/marcas";
             string response = await client.GetStringAsync(url);
 
-            var brands = JsonConvert.DeserializeObject<List<BrandDTO>>(response) ?? 
+            var brands = JsonConvert.DeserializeObject<List<BrandDTO>>(response) ??
                          throw new NullReferenceException($"Não foi encontrada nenhuma marca");
 
             return brands;

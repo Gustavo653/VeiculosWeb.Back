@@ -5,7 +5,7 @@ using VeiculosWeb.DTO.Base;
 namespace VeiculosWeb.DTO
 {
     public class FeatureDTO : BasicDTO
-    {        
+    {
         [Required]
         public required VehicleType VehicleType { get; set; }
     }

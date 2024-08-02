@@ -1,7 +1,7 @@
 ﻿using VeiculosWeb.Domain.Enum;
 using VeiculosWeb.Domain.Shared;
 
-namespace VeiculosWeb.Domain.CarSpecification
+namespace VeiculosWeb.Domain.VehicleSpecification
 {
     public class Model : BasicEntity
     {

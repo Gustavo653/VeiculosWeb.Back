@@ -1,8 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Serilog;
-using VeiculosWeb.Domain.CarSpecification;
-using VeiculosWeb.Domain.Enum;
 using VeiculosWeb.Domain.Location;
 using VeiculosWeb.DTO.Base;
 using VeiculosWeb.Infrastructure.Repository;
@@ -82,7 +80,7 @@ namespace VeiculosWeb.Service
                 else
                 {
                     Log.Warning($"Criando o estado {apiState.Nome}");
-                    await stateRepository.InsertAsync(new State() { Name = apiState.Nome, Code = apiState.Id, Abbreviation = apiState.Sigla});
+                    await stateRepository.InsertAsync(new State() { Name = apiState.Nome, Code = apiState.Id, Abbreviation = apiState.Sigla });
                 }
             }
 
@@ -95,7 +93,7 @@ namespace VeiculosWeb.Service
             const string url = $"{Consts.UrlBaseIBGE}/estados";
             string response = await client.GetStringAsync(url);
 
-            var states = JsonConvert.DeserializeObject<List<StateDTO>>(response) ?? 
+            var states = JsonConvert.DeserializeObject<List<StateDTO>>(response) ??
                          throw new NullReferenceException($"Não foi encontrada nenhuma marca");
 
             return states;

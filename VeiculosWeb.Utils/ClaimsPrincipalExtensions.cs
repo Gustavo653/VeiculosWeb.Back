@@ -8,7 +8,7 @@ namespace VeiculosWeb.Utils
         {
             return user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         }
-        
+
         public static string? GetUserName(this ClaimsPrincipal user)
         {
             return user.FindFirst(ClaimTypes.Name)?.Value;

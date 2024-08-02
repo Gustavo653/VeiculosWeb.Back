@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using VeiculosWeb.Domain.Base;
-using VeiculosWeb.Domain.CarSpecification;
 using VeiculosWeb.Domain.Location;
+using VeiculosWeb.Domain.VehicleSpecification;
 
 namespace VeiculosWeb.Persistence
 {
@@ -36,32 +36,32 @@ namespace VeiculosWeb.Persistence
             {
                 x.HasIndex(a => new { a.Code, a.BrandId }).IsUnique();
             });
-            
+
             modelBuilder.Entity<State>(x =>
             {
                 x.HasIndex(a => new { a.Code }).IsUnique();
             });
-            
+
             modelBuilder.Entity<City>(x =>
             {
                 x.HasIndex(a => new { a.Code }).IsUnique();
             });
-            
+
             modelBuilder.Entity<Color>(x =>
             {
                 x.HasIndex(a => new { a.Name }).IsUnique();
             });
-            
+
             modelBuilder.Entity<Feature>(x =>
             {
                 x.HasIndex(a => new { a.Name, a.VehicleType }).IsUnique();
             });
-            
+
             modelBuilder.Entity<Gearbox>(x =>
             {
                 x.HasIndex(a => new { a.Name }).IsUnique();
             });
-            
+
             modelBuilder.Entity<Image>(x =>
             {
                 x.HasIndex(a => new { a.Url }).IsUnique();
