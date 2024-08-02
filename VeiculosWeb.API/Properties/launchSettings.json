@@ -8,7 +8,7 @@
       },
       "dotnetRunMessages": true,
       "applicationUrl": "http://localhost:5007",
-      "launchBrowser": true
+      "launchBrowser": false
     },
     "Docker": {
       "commandName": "Docker",
