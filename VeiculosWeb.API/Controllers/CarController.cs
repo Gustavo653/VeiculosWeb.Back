@@ -8,38 +8,35 @@ using VeiculosWeb.Utils;
 
 namespace VeiculosWeb.API.Controllers
 {
-    public class ColorController(IColorService colorService) : BaseController
+    public class CarController(ICarService carService) : BaseController
     {
         [HttpPost("")]
-        [Authorize(Roles = nameof(RoleName.Admin))]
-        public async Task<IActionResult> CreateColor([FromBody] ColorDTO colorDTO)
+        public async Task<IActionResult> CreateCar([FromBody] BaseVehicleDTO baseVehicleDTO)
         {
-            var color = await colorService.Create(colorDTO);
+            var color = await carService.Create(baseVehicleDTO);
             return StatusCode(color.Code, color);
         }
 
         [HttpPut("{id:guid}")]
-        [Authorize(Roles = nameof(RoleName.Admin))]
-        public async Task<IActionResult> UpdateColor([FromRoute] Guid id, [FromBody] ColorDTO colorDTO)
+        public async Task<IActionResult> UpdateCar([FromRoute] Guid id, [FromBody] BaseVehicleDTO baseVehicleDTO)
         {
-            var color = await colorService.Update(id, colorDTO);
+            var color = await carService.Update(id, baseVehicleDTO);
             return StatusCode(color.Code, color);
         }
 
         [HttpDelete("{id:guid}")]
-        [Authorize(Roles = nameof(RoleName.Admin))]
-        public async Task<IActionResult> RemoveColor([FromRoute] Guid id)
+        public async Task<IActionResult> RemoveCar([FromRoute] Guid id)
         {
-            var color = await colorService.Remove(id);
+            var color = await carService.Remove(id);
             return StatusCode(color.Code, color);
         }
 
         [HttpGet("")]
         [OutputCache(PolicyName = Consts.CacheName, Duration = Consts.CacheTimeout)]
         [AllowAnonymous]
-        public async Task<IActionResult> GetColors()
+        public async Task<IActionResult> GetCars()
         {
-            var color = await colorService.GetList();
+            var color = await carService.GetList();
             return StatusCode(color.Code, color);
         }
     }

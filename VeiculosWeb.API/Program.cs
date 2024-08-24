@@ -212,6 +212,7 @@ namespace VeiculosWeb.API
         private static void InjectRepositoryDependencies(IHostApplicationBuilder builder)
         {
             builder.Services.AddScoped<IBrandRepository, BrandRepository>();
+            builder.Services.AddScoped<ICarRepository, CarRepository>();
             builder.Services.AddScoped<IColorRepository, ColorRepository>();
             builder.Services.AddScoped<ICityRepository, CityRepository>();
             builder.Services.AddScoped<IFeatureRepository, FeatureRepository>();
@@ -227,6 +228,7 @@ namespace VeiculosWeb.API
         {
             builder.Services.AddScoped<IAccountService, AccountService>();
             builder.Services.AddScoped<IBrandService, BrandService>();
+            builder.Services.AddScoped<ICarService, CarService>();
             builder.Services.AddScoped<IColorService, ColorService>();
             builder.Services.AddScoped<ICityService, CityService>();
             builder.Services.AddScoped<IFeatureService, FeatureService>();

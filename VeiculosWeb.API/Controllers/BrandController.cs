@@ -18,7 +18,7 @@ namespace VeiculosWeb.API.Controllers
         }
 
         [HttpGet("GetBrands/{vehicleType}")]
-        [OutputCache(PolicyName = "CacheImmutableResponse", Duration = Consts.CacheTimeout)]
+        [OutputCache(PolicyName = Consts.CacheName, Duration = Consts.CacheTimeout)]
         [AllowAnonymous]
         public async Task<IActionResult> GetBrands([FromRoute] VehicleType vehicleType)
         {

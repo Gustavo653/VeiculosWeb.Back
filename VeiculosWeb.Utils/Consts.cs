@@ -8,5 +8,6 @@
         public const string UrlBaseFipe = "https://parallelum.com.br/fipe/api/v1/";
         public const string UrlBaseIBGE = "https://servicodados.ibge.gov.br/api/v1/localidades/";
         public const int CacheTimeout = 30;
+        public const string CacheName = "CacheImmutableResponse";
     }
 }

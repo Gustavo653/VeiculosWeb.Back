@@ -35,7 +35,7 @@ namespace VeiculosWeb.API.Controllers
         }
 
         [HttpGet("")]
-        [OutputCache(PolicyName = "CacheImmutableResponse", Duration = Consts.CacheTimeout)]
+        [OutputCache(PolicyName = Consts.CacheName, Duration = Consts.CacheTimeout)]
         [AllowAnonymous]
         public async Task<IActionResult> GetFuels()
         {

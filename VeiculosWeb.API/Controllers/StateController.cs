@@ -18,7 +18,7 @@ namespace VeiculosWeb.API.Controllers
         }
 
         [HttpGet("GetStates")]
-        [OutputCache(PolicyName = "CacheImmutableResponse", Duration = Consts.CacheTimeout)]
+        [OutputCache(PolicyName = Consts.CacheName, Duration = Consts.CacheTimeout)]
         [AllowAnonymous]
         public async Task<IActionResult> GetStates()
         {

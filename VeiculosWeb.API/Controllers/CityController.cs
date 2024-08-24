@@ -18,7 +18,7 @@ namespace VeiculosWeb.API.Controllers
         }
 
         [HttpGet("GetCitiesByState/{stateId:Guid}")]
-        [OutputCache(PolicyName = "CacheImmutableResponse", Duration = Consts.CacheTimeout)]
+        [OutputCache(PolicyName = Consts.CacheName, Duration = Consts.CacheTimeout)]
         [AllowAnonymous]
         public async Task<IActionResult> GetCitiesByState([FromRoute] Guid stateId)
         {
